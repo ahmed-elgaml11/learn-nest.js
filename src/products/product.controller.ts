@@ -3,14 +3,14 @@ import { ProductService } from "./product.service";
 
 @Controller('products')
 export class ProductController {
-    constructor (private readonly productServise: ProductService ){}
+    constructor(private readonly productServise: ProductService) { }
     @Get()
-    GetAll(): string{
+    findAll(): string {
         return 'all products..'
     }
     @Get('calc')
-    calc(){
-        return this.productServise.add
+    calc() {
+        return this.productServise.add()
     }
 
 }
