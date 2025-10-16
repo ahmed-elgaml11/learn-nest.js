@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 import { ProductController } from "./product.controller";
 import { ProductService } from "./product.service";
 import { ProductRepository } from "./product.repository";
@@ -8,4 +8,8 @@ import { ProductRepository } from "./product.repository";
     providers: [ProductService, ProductRepository],
     exports: [ProductModule]
 })
-export class ProductModule {}
+export class ProductModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ProductModule).forRoutes(ProductController);
+  }
+}
