@@ -2,14 +2,15 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/c
 import { ProductController } from "./product.controller";
 import { ProductService } from "./product.service";
 import { ProductRepository } from "./product.repository";
+import { ProductMiddleware } from "src/midllewares/products.middleware";
 
 @Module({
     controllers: [ProductController],
     providers: [ProductService, ProductRepository],
-    exports: [ProductModule]
+    exports: [ProductService, ProductRepository]
 })
 export class ProductModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(ProductModule).forRoutes(ProductController);
+    consumer.apply(ProductMiddleware).forRoutes(ProductController);
   }
 }
